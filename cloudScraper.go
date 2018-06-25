@@ -19,6 +19,7 @@ type CloudScraper interface {
 	DownloadData() int
 	GetFirstCapturingGroupValue() string
 	SetTimeout(time.Duration)
+	Data() string
 	SetPattern(string)
 	SetUrl(string)
 }
@@ -84,4 +85,9 @@ func (c *cloudScraper) DownloadData() int {
 	}
 	c.data = string(responseData)
 	return resp.StatusCode
+}
+
+// Returns the downloaded data, if any
+func (c *cloudScraper) Data() string {
+	return c.data
 }
