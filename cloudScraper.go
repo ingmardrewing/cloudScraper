@@ -31,7 +31,11 @@ func (c *cloudScraper) SetPattern(pattern string) {
 	if len(pattern) == 0 {
 		log.Fatalln("Pattern must not be an empty string")
 	}
-	c.pattern = regexp.MustCompile(pattern)
+	r, err := regexp.Compile(pattern)
+	if err != nil {
+		log.Fatalln("Regex contains errors:", pattern)
+	}
+	c.pattern = r
 }
 
 // Returns the value of a named capturing group
@@ -85,8 +89,7 @@ func (c *cloudScraper) GetFirstCapturingGroupValue() string {
 	return ""
 }
 
-// compiles the given pattern and returns
-// the matches using FindStringSubmatch
+// Returns matches found using FindStringSubmatch
 func (c *cloudScraper) match() []string {
 	return c.pattern.FindStringSubmatch(c.data)
 }
