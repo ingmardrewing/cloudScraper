@@ -85,8 +85,7 @@ func (c *cloudScraper) GetFirstCapturingGroupValue() string {
 	return ""
 }
 
-// compiles the given pattern and returns
-// the matches using FindStringSubmatch
+// Returns matches found using FindStringSubmatch
 func (c *cloudScraper) match() []string {
 	return c.pattern.FindStringSubmatch(c.data)
 }
